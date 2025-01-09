@@ -23,7 +23,7 @@ from src.agent.custom_prompts import CustomSystemPrompt
 from src.browser.custom_browser import CustomBrowser
 from src.browser.custom_context import BrowserContextConfig as CustomBrowserContextConfig
 from src.controller.custom_controller import CustomController
-from src.utils.utils import update_model_dropdown
+from src.utils.utils import update_model_dropdown, get_llm_model  # Import get_llm_model here
 
 # Load environment variables
 load_dotenv()
@@ -39,7 +39,6 @@ THEME_MAP = {
     "Ocean": Ocean(),
     "Base": Base(),
 }
-
 
 async def run_browser_agent(
     agent_type: str,
@@ -78,7 +77,7 @@ async def run_browser_agent(
             + glob.glob(os.path.join(save_recording_path, "*.[wW][eE][bB][mM]"))
         )
 
-    llm = utils.get_llm_model(
+    llm = get_llm_model(  # Use get_llm_model directly
         provider=llm_provider,
         model_name=llm_model_name,
         temperature=llm_temperature,
